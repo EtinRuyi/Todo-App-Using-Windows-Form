@@ -9,7 +9,8 @@ namespace ToDoApp
     public partial class Form1 : Form
     {
         private SqlConnection sqlConnection;
-        //private readonly string connectionString;
+        private int selecteTaskId;
+
         public Form1()
         {
             InitializeComponent();
@@ -28,16 +29,9 @@ namespace ToDoApp
                 SqlDataAdapter adapter = new SqlDataAdapter(selectQuery, sqlConnection);
                 DataTable dataTable = new DataTable();
 
-
-
                 adapter.Fill(dataTable);
 
-
-
                 TodoView.DataSource = dataTable;
-
-
-
             }
             catch (Exception ex)
             {
@@ -67,8 +61,6 @@ namespace ToDoApp
                 return;
             }
 
-
-
             DialogResult result = MessageBox.Show("Are you sure you want to delete the selected task(s) ?", "Confirm delete", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -79,8 +71,6 @@ namespace ToDoApp
                     selectedTaskIds.Add(taskIdToDelete);
                 }
 
-
-
                 string deleteQuery = "DELETE FROM ViewTable WHERE ID IN (" + string.Join(",", selectedTaskIds) + ")";
                 using (SqlCommand cmd = new SqlCommand(deleteQuery, sqlConnection))
                 {
@@ -89,9 +79,6 @@ namespace ToDoApp
                         sqlConnection.Open();
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("SelectedTask(s) deleted successfully");
-
-
-
                         LoadTask();
                     }
                     catch (Exception ex)
@@ -102,47 +89,28 @@ namespace ToDoApp
                     {
                         sqlConnection.Close();
                     }
-
-
-
                 }
             }
         }
 
         private async Task LoadTask()
         {
-
-
-
             string selectQuery = "SELECT * FROM ViewTable";
 
             SqlDataAdapter adapter = await Task.Run(() => new SqlDataAdapter(selectQuery, sqlConnection));
             DataTable dataTable = new DataTable();
-
-
-
             adapter.Fill(dataTable);
-
-
-
             TodoView.DataSource = dataTable;
-
-
-
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            // Get data from textboxes
             string title = TitleBox.Text;
             string description = DescriptionBox.Text;
             DateTime StartDate = (DateTime)StartDateBox.Value;
             DateTime EndDate = (DateTime)EndDateBox.Value;
             int ID = 1;
 
-
-
-            // If nothing is written
             if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(description))
             {
                 if (string.IsNullOrWhiteSpace(title))
@@ -158,8 +126,6 @@ namespace ToDoApp
                 return;
             }
 
-
-
             if (selecteTaskId > 0)
             {
                 UpdateTask(selecteTaskId, title, description, StartDate, EndDate);
@@ -173,7 +139,6 @@ namespace ToDoApp
             }
             else
             {
-                // Query the database to find the maximum existing ID
                 string maxIdQuery = "SELECT MAX(ID) FROM ViewTable";
                 using (SqlCommand getMaxIdCmd = new SqlCommand(maxIdQuery, sqlConnection))
                 {
@@ -182,16 +147,11 @@ namespace ToDoApp
                         sqlConnection.Open();
                         object result = getMaxIdCmd.ExecuteScalar();
 
-
-
-                        if (result != DBNull.Value) // Check if there are existing records
+                        if (result != DBNull.Value)
                         {
-                            ID = Convert.ToInt32(result) + 1; // Increment the maximum ID
+                            ID = Convert.ToInt32(result) + 1;
                         }
 
-
-
-                        // Create a query to add the task to the database
                         string insertQuery = "INSERT INTO ViewTable (ID, Title, Description, StartDate, EndDate) VALUES (@ID, @Title, @Description, @StartDate, @EndDate)";
                         using (SqlCommand cmd = new SqlCommand(insertQuery, sqlConnection))
                         {
@@ -201,20 +161,12 @@ namespace ToDoApp
                             cmd.Parameters.AddWithValue("@StartDate", StartDate);
                             cmd.Parameters.AddWithValue("@EndDate", EndDate);
 
-
-
                             try
                             {
                                 cmd.ExecuteNonQuery();
                                 MessageBox.Show("Added successfully");
-
-
-
                                 TitleBox.Text = "";
                                 DescriptionBox.Text = "";
-
-
-
                                 LoadTask();
                             }
                             catch (Exception ex)
@@ -235,32 +187,20 @@ namespace ToDoApp
             }
         }
 
-        private int selecteTaskId;
-
         private void EditTodo_Click(object sender, EventArgs e)
         {
             if (TodoView.SelectedRows.Count > 0)
             {
                 selecteTaskId = Convert.ToInt32(TodoView.SelectedRows[0].Cells["ID"].Value);
-
-
-
                 string existingTitle = TodoView.SelectedRows[0].Cells["Title"].Value.ToString();
                 string existingDescription = TodoView.SelectedRows[0].Cells["Description"].Value.ToString();
                 DateTime existingStartDate = (DateTime)(TodoView.SelectedRows[0].Cells["StartDate"].Value);
                 DateTime existingEndDate = (DateTime)(TodoView.SelectedRows[0].Cells["EndDate"].Value);
 
-
-
-
-
                 TitleBox.Text = existingTitle;
                 DescriptionBox.Text = existingDescription;
                 StartDateBox.Value = existingStartDate;
                 EndDateBox.Value = existingEndDate;
-
-
-
             }
             else
             {
@@ -272,19 +212,12 @@ namespace ToDoApp
         {
             string searchWord = SearchBox.Text.Trim();
 
-
-
             if (string.IsNullOrEmpty(searchWord))
             {
                 MessageBox.Show("Please enter a search key word");
                 return;
             }
-
-
-
             DataTable searchResults = SearchTask(searchWord);
-
-
 
             TodoView.DataSource = searchResults;
             SearchBox.Clear();
@@ -301,28 +234,20 @@ namespace ToDoApp
                     cmd.Parameters.AddWithValue("@SearchWord", "%" + searchWord + "%");
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(searchResults);
-
-
-
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error " + ex);
-
-
-
             }
             return searchResults;
         }
-
 
         private void UpdateTask(int taskId, string newTitle, string newDescription, DateTime newStartDate, DateTime newEndDate)
         {
             try
             {
                 string updateQuery = "UPDATE ViewTable SET Title = @NewTitle, Description = @NewDescription, StartDate = @NewStartDate, EndDate = @NewEndDate WHERE ID = @TaskId";
-                //string updateQuery = "UPDATE ViewTable SET Title = @NewTitle, Description = @NewDescription, ID = @TaskId , StartDate = @NewStartDate, EndDate = @NewEndDate";
                 using (SqlCommand cmd = new SqlCommand(updateQuery, sqlConnection))
                 {
                     cmd.Parameters.AddWithValue("@NewTitle", newTitle);
@@ -330,8 +255,6 @@ namespace ToDoApp
                     cmd.Parameters.AddWithValue("@TaskId", taskId);
                     cmd.Parameters.AddWithValue("@NewStartDate", newStartDate);
                     cmd.Parameters.AddWithValue("@NewEndDate", newEndDate);
-
-
 
                     sqlConnection.Open();
                     cmd.ExecuteNonQuery();
@@ -347,7 +270,5 @@ namespace ToDoApp
                 sqlConnection.Close();
             }
         }
-
-
     }
 }

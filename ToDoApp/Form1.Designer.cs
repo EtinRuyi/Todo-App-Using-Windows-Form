@@ -78,7 +78,7 @@
             TitleBox.Location = new Point(24, 112);
             TitleBox.Multiline = true;
             TitleBox.Name = "TitleBox";
-            TitleBox.Size = new Size(175, 36);
+            TitleBox.Size = new Size(327, 36);
             TitleBox.TabIndex = 2;
             // 
             // Description
@@ -95,9 +95,9 @@
             // 
             // AddButton
             // 
-            AddButton.Location = new Point(651, 180);
+            AddButton.Location = new Point(24, 272);
             AddButton.Name = "AddButton";
-            AddButton.Size = new Size(67, 44);
+            AddButton.Size = new Size(124, 44);
             AddButton.TabIndex = 5;
             AddButton.Text = "Add / Update";
             AddButton.UseVisualStyleBackColor = true;
@@ -106,9 +106,9 @@
             // LoadAllTodo
             // 
             LoadAllTodo.ForeColor = SystemColors.ControlText;
-            LoadAllTodo.Location = new Point(1038, 91);
+            LoadAllTodo.Location = new Point(220, 272);
             LoadAllTodo.Name = "LoadAllTodo";
-            LoadAllTodo.Size = new Size(113, 26);
+            LoadAllTodo.Size = new Size(131, 44);
             LoadAllTodo.TabIndex = 6;
             LoadAllTodo.Text = "Load All Todo";
             LoadAllTodo.UseVisualStyleBackColor = true;
@@ -116,9 +116,9 @@
             // 
             // DeleteTodo
             // 
-            DeleteTodo.Location = new Point(1038, 123);
+            DeleteTodo.Location = new Point(642, 272);
             DeleteTodo.Name = "DeleteTodo";
-            DeleteTodo.Size = new Size(113, 25);
+            DeleteTodo.Size = new Size(113, 44);
             DeleteTodo.TabIndex = 7;
             DeleteTodo.Text = "Delete Selected";
             DeleteTodo.UseVisualStyleBackColor = true;
@@ -126,9 +126,9 @@
             // 
             // EditTodo
             // 
-            EditTodo.Location = new Point(1038, 154);
+            EditTodo.Location = new Point(424, 272);
             EditTodo.Name = "EditTodo";
-            EditTodo.Size = new Size(113, 29);
+            EditTodo.Size = new Size(130, 44);
             EditTodo.TabIndex = 8;
             EditTodo.Text = "Edit Selected";
             EditTodo.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             // 
             SearchTodo.BackColor = SystemColors.ButtonFace;
             SearchTodo.Font = new Font("Times New Roman", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            SearchTodo.Location = new Point(1038, 14);
+            SearchTodo.Location = new Point(1046, 16);
             SearchTodo.Name = "SearchTodo";
             SearchTodo.Size = new Size(113, 27);
             SearchTodo.TabIndex = 9;
@@ -150,7 +150,7 @@
             // 
             SearchBox.AllowDrop = true;
             SearchBox.Font = new Font("Times New Roman", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            SearchBox.Location = new Point(897, 14);
+            SearchBox.Location = new Point(907, 16);
             SearchBox.Multiline = true;
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(145, 27);
@@ -161,10 +161,10 @@
             // DescriptionBox
             // 
             DescriptionBox.AllowDrop = true;
-            DescriptionBox.Location = new Point(24, 180);
+            DescriptionBox.Location = new Point(24, 186);
             DescriptionBox.Multiline = true;
             DescriptionBox.Name = "DescriptionBox";
-            DescriptionBox.Size = new Size(628, 44);
+            DescriptionBox.Size = new Size(1135, 66);
             DescriptionBox.TabIndex = 12;
             // 
             // StartDate
@@ -173,7 +173,7 @@
             StartDate.BackColor = Color.FromArgb(255, 128, 0);
             StartDate.Font = new Font("Times New Roman", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             StartDate.ForeColor = SystemColors.ControlText;
-            StartDate.Location = new Point(424, 91);
+            StartDate.Location = new Point(868, 89);
             StartDate.Name = "StartDate";
             StartDate.Size = new Size(69, 26);
             StartDate.TabIndex = 13;
@@ -190,14 +190,14 @@
             // 
             // EndDateBox
             // 
-            EndDateBox.Location = new Point(490, 123);
+            EndDateBox.Location = new Point(931, 121);
             EndDateBox.Name = "EndDateBox";
             EndDateBox.Size = new Size(228, 25);
             EndDateBox.TabIndex = 15;
             // 
             // StartDateBox
             // 
-            StartDateBox.Location = new Point(490, 91);
+            StartDateBox.Location = new Point(931, 90);
             StartDateBox.Name = "StartDateBox";
             StartDateBox.Size = new Size(228, 25);
             StartDateBox.TabIndex = 16;
@@ -206,7 +206,7 @@
             // 
             EndDate.AllowDrop = true;
             EndDate.BackColor = Color.FromArgb(255, 128, 0);
-            EndDate.Location = new Point(424, 123);
+            EndDate.Location = new Point(868, 121);
             EndDate.Name = "EndDate";
             EndDate.Size = new Size(69, 25);
             EndDate.TabIndex = 17;
@@ -217,10 +217,10 @@
             // 
             TodoView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             TodoView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            TodoView.Location = new Point(24, 230);
+            TodoView.Location = new Point(24, 322);
             TodoView.Name = "TodoView";
             TodoView.RowTemplate.Height = 25;
-            TodoView.Size = new Size(1135, 413);
+            TodoView.Size = new Size(1135, 321);
             TodoView.TabIndex = 18;
             // 
             // Form1
